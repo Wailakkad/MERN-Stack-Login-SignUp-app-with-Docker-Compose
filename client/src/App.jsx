@@ -10,7 +10,7 @@ function App() {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://backend:8000/register', { username, password });
+      const response = await axios.post('http://localhost:8000/register', { username, password });
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response.data.message || 'An error occurred');
@@ -19,7 +19,7 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://backend:8000/login', { username, password });
+      const response = await axios.post('http://localhost:8000/login', { username, password });
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response.data.message || 'An error occurred');

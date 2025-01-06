@@ -8,6 +8,8 @@ services:
       - data:/data/db
     ports:
       - "27017:27017"
+    networks:
+      - app-network
 
   backend:
     build: ./server
@@ -19,8 +21,11 @@ services:
       - logs:/app/logs
       - ./server:/app
       - /app/node_modules
+      - ./server/.env:/app/.env
     depends_on:
       - mongodb
+    networks:
+      - app-network
 
   frontend:
     build: ./client
@@ -32,6 +37,12 @@ services:
       - ./client/src:/app/src
     depends_on:
       - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   data:

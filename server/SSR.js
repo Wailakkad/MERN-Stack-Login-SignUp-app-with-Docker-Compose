@@ -35,9 +35,10 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
   
-    res.json({ message: 'Login successful' });
+    // Respond with user data in the response
+    res.json({ message: 'Login successful', data: user });
   });
-
+  
 connection();
 // Start the server
 app.listen(port, () => {
