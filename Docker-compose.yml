@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  mongodb:
+    image: "mongo"
+    container_name: mongodb
+    restart: always
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./server
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - logs:/app/logs
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./client
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
+    depends_on:
+      - backend
+
+volumes:
+  data:
+  logs:
